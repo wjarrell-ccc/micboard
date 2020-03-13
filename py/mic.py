@@ -116,12 +116,10 @@ class WirelessMic(ChannelDevice):
         self.quality = int(quality)
 
     def set_power_lock(self, power_lock):
-        if power_lock == 'ON':
+        if power_lock in ['ON', 'ALL', 'POWER']:
             self.power_lock = '🔒'
         else:
             self.power_lock = ''
-
-
 
     def tx_state(self):
         # WCCC Specific State for unassigned microphones
