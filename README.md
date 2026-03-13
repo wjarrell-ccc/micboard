@@ -1,7 +1,7 @@
 ## About This Fork
 
 This is a community-maintained fork of [karlcswanson/micboard](https://github.com/karlcswanson/micboard).
-The original project was last updated in 2019 and can no longer be installed on modern operating systems.
+The original project was last updated in 2019 (v0.8.5, with additional work in an unfinished 0.8.7 branch) and can no longer be installed on modern operating systems. This fork modernizes the codebase and incorporates the unfinished 0.8.7 fixes and features.
 
 This fork was created and maintained by [@wjarrell-ccc](https://github.com/wjarrell-ccc) at
 Crossings Community Church, Oklahoma City, OK.
