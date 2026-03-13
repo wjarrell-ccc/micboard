@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.9.2] - 2026-03-13
+### Added
+- Powerlock support for QLXD, ULXD, and Axient Digital transmitters (shows 🔒 when locked)
+- HUD link added to hamburger menu
+
+### Fixed
+- Axient Digital powerlock state handling improved
+- Extended names now preserved correctly on config change
+
 ## [0.9.1] - 2026-03-13
 ### Fixed
 - Spurious battery runtime values (65535, stale time display) no longer shown when no transmitter is present
