@@ -37,7 +37,7 @@ class WirelessMic(ChannelDevice):
         self.tx_offset = 255
         self.peakstamp = time.time() - 60
         self.quality = 255
-        self.runtime = 65535
+        self.runtime = ''
 
     def set_antenna(self, antenna):
         self.antenna = antenna
@@ -92,6 +92,8 @@ class WirelessMic(ChannelDevice):
         if 1 <= level <= 5:
             self.prev_battery = level
             self.timestamp = time.time()
+        elif level == 255:
+            self.runtime = ''
 
     # https://stackoverflow.com/questions/1784952/how-get-hoursminutes
     def set_runtime(self, runtime):
