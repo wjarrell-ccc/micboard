@@ -1,6 +1,6 @@
 {
   "name": "micboard",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "description": "An intelligent mic tray for ethernet enabled Shure microphones.",
   "main": "main.js",
   "scripts": {
