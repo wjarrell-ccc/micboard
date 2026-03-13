@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.9.1] - 2026-03-13
+### Fixed
+- Spurious battery runtime values (65535, stale time display) no longer shown when no transmitter is present
+
+## [0.9.0] - 2026-03-13
+### Changed
+- Forked from karlcswanson/micboard v0.8.5
+- Updated Node.js requirement from 10.x to 20.x LTS
+- Upgraded webpack from v4 to v5
+- Replaced node-sass with dart-sass (pure JS, ARM compatible)
+- Updated all npm dependencies to current versions
+- Fixed Python 3.10+ compatibility (logging.handlers import, asyncio deprecation)
+- Pinned tornado to 6.4
+- Bumped version to 0.9.0
+
 
 ## [0.8.5] - 2019-10-10
 ### Added

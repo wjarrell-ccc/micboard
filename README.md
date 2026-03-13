@@ -1,3 +1,28 @@
+## About This Fork
+
+This is a community-maintained fork of [karlcswanson/micboard](https://github.com/karlcswanson/micboard).
+The original project was last updated in 2019 and can no longer be installed on modern operating systems.
+
+This fork was created and maintained by [@wjarrell-ccc](https://github.com/wjarrell-ccc) at
+Crossings Community Church, Oklahoma City, OK.
+
+Modernization work was completed with the assistance of AI (Claude by Anthropic). All credit for
+the original application design and architecture goes to Karl Swanson.
+
+### What's changed in this fork
+- Updated to run on Ubuntu 22.04/24.04 LTS
+- Replaced Node.js 10 with Node.js 20 LTS
+- Upgraded webpack 4 to webpack 5
+- Replaced node-sass with dart-sass for ARM compatibility
+- Fixed Python compatibility issues for Python 3.10+
+- Fixed spurious battery/runtime values displayed when no transmitter is present
+
+### Known Behavior
+- The `e` (edit) keyboard shortcut is intentionally disabled on the all-channels view (group 0).
+  Use a numbered group view to edit slot order.
+
+---
+
 <p align="center">
   <a href="https://micboard.io"><img width="90px" height="90px" src="docs/img/logo.png"></a>
 </p>
