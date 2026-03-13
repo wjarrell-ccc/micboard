@@ -175,7 +175,7 @@ def twisted():
         (r'/bg/(.*)', NoCacheHandler, {'path': config.get_gif_dir()})
     ])
     # https://github.com/tornadoweb/tornado/issues/2308
-    asyncio.set_event_loop(asyncio.new_event_loop())
+    asyncio.set_event_loop_policy(asyncio.DefaultEventLoopPolicy())
     app.listen(config.web_port())
     ioloop.PeriodicCallback(SocketHandler.ws_dump, 50).start()
     ioloop.IOLoop.instance().start()
