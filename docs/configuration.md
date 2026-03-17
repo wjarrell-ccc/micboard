@@ -62,6 +62,21 @@ Use a dedicated group for each mic storage display.  Multiple **BLANK** boxes ca
 
 Image and video<sup>[1](#mp4)</sup> backgrounds can be used with Micboard. Files in the `backgrounds` folder of the micboard configuration directory are displayed based on the channel name. With backgrounds enabled, `01 Fatai` will display `fatai.jpg` as a background for the `01 Fatai` slot.
 
+### Recommended File Specifications
+
+**Images (JPG)**
+- Aspect ratio: 9:16 portrait for mic storage TV view
+- Recommended resolution: 1080x1920px
+- File format: JPG
+- Keep file sizes reasonable — large files will slow down page loads
+
+**Video (MP4)**
+- Aspect ratio: 9:16 portrait for mic storage TV view
+- Recommended resolution: 1080x1920px
+- File format: MP4 (H.264)
+- Keep duration short and file size small — videos loop continuously
+- Note: video backgrounds are currently only supported in Safari
+
 
 
 There are a few keyboard shortcuts to control background modes.
