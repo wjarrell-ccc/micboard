@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.3] - 2026-03-17
+### Fixed
+- Extended name editor save now correctly fires POST before page reload
+- Frequency display now correctly shows MHz instead of Hz
+- Powerlock icon and quality dots no longer overlap in slot view
+- nginx multivenue config rewritten with explicit location blocks for reliability on Ubuntu 24.04
+
 ## [0.9.2] - 2026-03-13
 ### Added
 - Powerlock support for QLXD, ULXD, and Axient Digital transmitters (shows 🔒 when locked)
