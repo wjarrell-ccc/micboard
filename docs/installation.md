@@ -71,9 +71,17 @@ $ sudo systemctl enable micboard.service
 ```
 
 ## Raspberry Pi
-Micboard v0.9.0+ is compatible with Raspberry Pi 4/5 running current Raspberry Pi OS (64-bit). Follow the Ubuntu installation instructions above — the process is identical.
 
-> **Note:** Raspberry Pi compatibility has not yet been fully tested and documented. See [GitHub Issue #X] for status.
+Micboard v0.9.3 has been tested and confirmed working on a Raspberry Pi 3B+ running Raspberry Pi OS Trixie (Debian 13) 64-bit.
+
+> **Important:** You must use the **64-bit** version of Raspberry Pi OS. Node.js 20 does not support 32-bit ARM. In Raspberry Pi Imager select **Raspberry Pi OS Lite (64-bit)**.
+
+Follow the same installation steps as Ubuntu above. A few Pi-specific notes:
+
+- `pip install` will automatically use [piwheels.org](https://www.piwheels.org) for optimized ARM packages — no special configuration needed
+- `npm install` takes approximately 4 minutes on a Pi 3B+ — this is normal, it is not hung
+- `npm run build` takes approximately 30 seconds on a Pi 3B+ — also normal
+- For a single venue install on a Pi, nginx is not required — just run micboard directly and access it at `http://PI_IP_ADDRESS:8058`
 
 ## macOS - Desktop Application
 Download and run micboard from the project's [GitHub Release](https://github.com/karlcswanson/micboard/releases/) page. Add RF devices to the 'Slot Configuration' and press 'Save'.
