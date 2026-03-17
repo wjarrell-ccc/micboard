@@ -47,7 +47,7 @@ function loadBulkNames() {
 
 function submitUpdate(data) {
   const url = 'api/slot';
-  postJSON(url, data, window.location.reload());
+  postJSON(url, data, () => window.location.reload());
 }
 
 function initSlotEdit() {
