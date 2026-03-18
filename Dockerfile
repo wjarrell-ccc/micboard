@@ -1,6 +1,6 @@
 FROM python:3.12-slim
 
-MAINTAINER Will Jarrell <wjarrell@crossings.church>
+LABEL maintainer="Will Jarrell <wjarrell@crossings.church>"
 
 WORKDIR /usr/src/app
 
