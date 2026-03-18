@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.9.4] - 2026-03-18
+### Added
+- Updated Dockerfile for Python 3.12-slim, Node.js 20, modern build process
+- Updated docker-compose.yaml with build directive and restart policy
+- Confirmed working on macOS (Apple Silicon) via Docker Desktop
+
 ## [0.9.3] - 2026-03-17
 ### Fixed
 - Extended name editor save now correctly fires POST before page reload
