@@ -1,13 +1,13 @@
 ## About This Fork
 
 This is a community-maintained fork of [karlcswanson/micboard](https://github.com/karlcswanson/micboard).
-The original project was last updated in 2019 (v0.8.5, with additional work in an unfinished 0.8.7 branch) and can no longer be installed on modern operating systems. This fork modernizes the codebase and incorporates the unfinished 0.8.7 fixes and features.
+The original project was last updated in 2019 and can no longer be installed on modern operating systems. This fork modernizes the codebase and incorporates fixes and features from Karl's unfinished 0.8.7 branch.
 
-This fork was created and maintained by [@wjarrell-ccc](https://github.com/wjarrell-ccc) at
-Crossings Community Church, Oklahoma City, OK.
+This fork was created and maintained by [@wjarrell-ccc](https://github.com/wjarrell-ccc) at Crossings Community Church, Oklahoma City, OK — a multi-campus church running 8 venue instances monitoring 50+ wireless microphones and IEMs across multiple campuses every weekend on a single AV VLAN.
 
-Modernization work was completed with the assistance of AI (Claude by Anthropic). All credit for
-the original application design and architecture goes to Karl Swanson.
+Micboard has been a huge win for us. Shure Wireless Workbench is powerful but having that many people opening different files on the same network always made us nervous about accidental changes. Micboard's read-only display plus the custom names and photo backgrounds gave our stage managers and volunteers exactly what they needed without the risk.
+
+When the original project stopped working on modern operating systems we modernized it rather than move on. Modernization work was completed with the assistance of AI (Claude by Anthropic). All credit for the original application design and architecture goes to Karl Swanson.
 
 ### What's changed in this fork
 - Updated to run on Ubuntu 22.04/24.04 LTS
@@ -15,7 +15,21 @@ the original application design and architecture goes to Karl Swanson.
 - Upgraded webpack 4 to webpack 5
 - Replaced node-sass with dart-sass for ARM compatibility
 - Fixed Python compatibility issues for Python 3.10+
+- Incorporated Karl's unfinished 0.8.7 branch fixes (powerlock, Axient improvements, HUD link, extended names)
 - Fixed spurious battery/runtime values displayed when no transmitter is present
+- Fixed Hz display incorrectly showing instead of MHz
+- Fixed extended name editor save timing bug
+- Fixed powerlock icon and quality dot positioning
+- Updated nginx multivenue configuration for Ubuntu 24.04/nginx 1.24
+- Added Docker support for easy Mac installation
+
+### Installation
+The easiest way to try micboard is Docker Desktop on a Mac. For permanent installs, a Raspberry Pi is recommended for single venue and Ubuntu Server for multi-venue. See [installation docs](docs/installation.md) for full details.
+
+### Tested On
+- Ubuntu 24.04 LTS on VMware ESXi VM (x86_64) — 8 venue multivenue setup
+- Raspberry Pi 3B+ running Raspberry Pi OS Trixie (Debian 13) 64-bit — single venue
+- Apple Silicon Mac via Docker Desktop — single venue
 
 ### Known Behavior
 - The `e` (edit) keyboard shortcut is intentionally disabled on the all-channels view (group 0).
