@@ -1,7 +1,44 @@
-# Server Installation
-Micboard server can be installed on many different platforms. For small and portable systems, Micboard can run on a Raspberry Pi hidden in the back of a rack. Ubuntu Server is recommended for large permanent installations.
+# Micboard Installation
+
+If you just want to try micboard, the easiest way is Docker Desktop on your Mac — no server required. If you want a permanent single venue install, a Raspberry Pi is inexpensive and runs micboard reliably. If you have multiple venues or existing server infrastructure, Ubuntu Server is the recommended path.
 
 > **Note:** This fork (v0.9.0+) has been modernized to run on Ubuntu 22.04/24.04 LTS. The original installation instructions for Ubuntu 18.04 are no longer supported.
+
+## macOS — Docker Desktop
+
+Docker is the easiest way to try micboard on a Mac. It handles all the dependencies automatically so you don't need to install Python, Node.js, or anything else manually.
+
+> **Note:** Docker Desktop is approximately 3GB because it includes a lightweight Linux VM. This is a one-time install. If you plan to run micboard permanently, a Raspberry Pi is a more practical long-term solution.
+
+Download and install Docker Desktop from [docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop/). Choose the Apple Silicon version for M1/M2/M3/M4 Macs, or Intel Chip for older Macs.
+
+Then clone and run micboard:
+```
+$ git clone https://github.com/wjarrell-ccc/micboard.git
+$ cd micboard/
+$ docker-compose up --build
+```
+
+The first run will take a few minutes to build. When you see `Starting Micboard` in the terminal, open a browser and go to `http://localhost:8058`
+
+To stop micboard press `Ctrl+C`. Next time just run `docker-compose up` — no need to rebuild.
+
+Check the [configuration](configuration.md) docs for more information on configuring micboard.
+
+
+
+## Raspberry Pi
+
+Micboard v0.9.3 has been tested and confirmed working on a Raspberry Pi 3B+ running Raspberry Pi OS Trixie (Debian 13) 64-bit.
+
+> **Important:** You must use the **64-bit** version of Raspberry Pi OS. Node.js 20 does not support 32-bit ARM. In Raspberry Pi Imager select **Raspberry Pi OS Lite (64-bit)**.
+
+Follow the same installation steps as Ubuntu above. A few Pi-specific notes:
+
+- `pip install` will automatically use [piwheels.org](https://www.piwheels.org) for optimized ARM packages — no special configuration needed
+- `npm install` takes approximately 4 minutes on a Pi 3B+ — this is normal, it is not hung
+- `npm run build` takes approximately 30 seconds on a Pi 3B+ — also normal
+- For a single venue install on a Pi, nginx is not required — just run micboard directly and access it at `http://PI_IP_ADDRESS:8058`
 
 ## Ubuntu 22.04 / 24.04 LTS
 
@@ -70,75 +107,15 @@ $ sudo systemctl start micboard.service
 $ sudo systemctl enable micboard.service
 ```
 
-## Raspberry Pi
 
-Micboard v0.9.3 has been tested and confirmed working on a Raspberry Pi 3B+ running Raspberry Pi OS Trixie (Debian 13) 64-bit.
+---
 
-> **Important:** You must use the **64-bit** version of Raspberry Pi OS. Node.js 20 does not support 32-bit ARM. In Raspberry Pi Imager select **Raspberry Pi OS Lite (64-bit)**.
+## Tested On
 
-Follow the same installation steps as Ubuntu above. A few Pi-specific notes:
+These are the platforms that have been confirmed working with micboard v0.9.4:
 
-- `pip install` will automatically use [piwheels.org](https://www.piwheels.org) for optimized ARM packages — no special configuration needed
-- `npm install` takes approximately 4 minutes on a Pi 3B+ — this is normal, it is not hung
-- `npm run build` takes approximately 30 seconds on a Pi 3B+ — also normal
-- For a single venue install on a Pi, nginx is not required — just run micboard directly and access it at `http://PI_IP_ADDRESS:8058`
+- Ubuntu 24.04 LTS on VMware ESXi VM (x86_64) — 8 venue multivenue setup
+- Raspberry Pi 3B+ running Raspberry Pi OS Trixie (Debian 13) 64-bit — single venue
+- Apple Silicon Mac via Docker Desktop — single venue
 
-## macOS - Desktop Application
-Download and run micboard from the project's [GitHub Release](https://github.com/karlcswanson/micboard/releases/) page. Add RF devices to the 'Slot Configuration' and press 'Save'.
-
-> **Note:** The macOS Electron wrapper is currently unsupported in this fork. The web interface works correctly in any browser when running micboard from source.
-
-Check the [configuration](configuration.md) docs for more information on configuring micboard.
-
-## macOS - From Source
-Install the Xcode command-line tools
-```
-$ xcode-select --install
-```
-
-Install the homebrew package manager
-```
-$ /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
-Install python3 and node
-```
-$ brew install python3 node
-```
-
-Clone micboard
-```
-$ git clone https://github.com/wjarrell-ccc/micboard.git
-$ cd micboard/
-```
-
-Install micboard software dependencies
-```
-$ python3 -m venv venv
-$ source venv/bin/activate
-$ pip install tornado==6.4
-$ npm install
-$ npm run build
-```
-
-Run micboard
-```
-$ cd py && python3 micboard.py
-```
-
-Check the [configuration](configuration.md) docs for more information on configuring micboard.
-
-## Docker
-Clone micboard
-```
-$ git clone https://github.com/wjarrell-ccc/micboard.git
-```
-
-Build and run docker image
-```
-$ cd micboard/
-$ docker build -t micboard .
-$ docker-compose up
-```
-
-> **Note:** The Dockerfile has not yet been updated for this fork. Community contributions welcome.
+Ubuntu 22.04 LTS has not yet been formally tested but should work identically to 24.04.
