@@ -1,11 +1,9 @@
-version: '2'
-
 services:
-  # -------- Micboard -----------
   micboard:
-    image: micboard
+    build: .
     container_name: micboard
     ports:
       - '8058:8058'
     volumes:
       - ./config:/root/.local/share/micboard
+    restart: unless-stopped
