@@ -162,6 +162,30 @@
         <h1>Connection Error!</h1>
         <p>Could not connect to the micboard server. Please refresh the page.</p>
       </div>
+      <div class="backgrounds">
+        <div class="container-fluid p-4">
+          <h4 class="text-white">Manage Background Photos</h4>
+          <p class="text-muted small">Directory: <span id="bg-directory"></span></p>
+          <form id="bg-upload-form" class="mb-3">
+            <div class="mb-2">
+              <label class="text-muted small mb-1">Name (must match channel name in micboard exactly, e.g. "larry" or "kim h")</label>
+              <input type="text" id="bg-name-input" class="form-control" placeholder="e.g. larry or kim h">
+            </div>
+            <div class="input-group mb-1">
+              <input type="file" id="bg-file-input" class="form-control" accept=".jpg,.jpeg,.png,.heic,.heif,.webp,.gif,.mp4">
+              <button type="submit" id="bg-upload-btn" class="btn btn-primary">Upload</button>
+            </div>
+            <small id="bg-upload-status" class="text-muted"></small>
+            <small class="text-muted d-block mt-1">Supported: JPG, PNG, HEIC (iPhone), WEBP (Android), MP4 &bull; Photos should be portrait orientation (e.g. 1080x1920) for best results in TV view</small>
+          </form>
+          <div class="d-flex justify-content-between align-items-center mb-2">
+            <h6 class="text-muted mb-0">Uploaded Photos</h6>
+            <button class="btn btn-sm btn-secondary" id="bg-view-toggle">List View</button>
+          </div>
+          <div id="bg-file-list"></div>
+          <button class="btn btn-secondary mt-3" id="bg-close">Close</button>
+        </div>
+      </div>
       <div class="settings">
 
         <div class="row">
@@ -217,7 +241,7 @@
           <div class="collapse" id="navbarToggleExternalContent">
             <div class="bg-dark p-4 navbar-nav" id="grouplist">
               <h4 class="text-white"><a class="nav-link" href='/'>micboard</a></h4>
-              <p class="text-muted"><a class="nav-link preset-link" id="go-group-0">all devices</a> | <a class="nav-link" id="go-extended" href="#">edit extended names</a> | <a class="nav-link" id="go-config">edit config</a></p>
+              <p class="text-muted"><a class="nav-link preset-link" id="go-group-0">all devices</a> | <a class="nav-link" id="go-extended" href="#">edit extended names</a> | <a class="nav-link" id="go-config">edit config</a> | <a class="nav-link" id="go-backgrounds" href="#">manage photos</a></p>
               <p class="text-muted"><a class="nav-link" id="go-groupedit" href="#">edit group</a></p>
               <div id="navbar-grouplist">
                 <p class="text-muted grp-link"><a class="nav-link preset-link" id="go-group-1">1:</a></p>

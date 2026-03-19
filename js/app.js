@@ -14,6 +14,7 @@ import { keybindings } from './kbd.js';
 import { setBackground, setInfoDrawer } from './display.js';
 import { setTimeMode } from './chart-smoothie.js';
 import { initConfigEditor } from './config.js';
+import { initBackgrounds } from './backgrounds.js';
 
 import '../css/colors.scss';
 import '../css/style.scss';
@@ -47,6 +48,7 @@ export function ActivateMessageBoard(h1, p) {
 
   $('#micboard').hide();
   $('.settings').hide();
+  $('.backgrounds').hide();
   const eb = document.getElementsByClassName('message-board')[0];
   eb.querySelector('h1').innerHTML = h1;
   eb.querySelector('p').innerHTML = p;
@@ -112,9 +114,25 @@ function mapGroups() {
     $('.collapse').collapse('hide');
   });
 
+  $('a#go-backgrounds').click(() => {
+    $('#micboard').hide();
+    $('.settings').hide();
+    $('.backgrounds').show();
+    initBackgrounds();
+    $('.collapse').collapse('hide');
+  });
+
   $('a#go-config').click(() => {
+    $('.backgrounds').hide();
+    $('#micboard').hide();
     initConfigEditor();
     $('.collapse').collapse('hide');
+  });
+
+  $('#bg-close').on('click', () => {
+    $('.backgrounds').hide();
+    $('.settings').hide();
+    $('#micboard').show();
   });
 
   $('a#go-groupedit').click(() => {

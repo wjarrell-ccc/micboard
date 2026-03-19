@@ -172,10 +172,141 @@ def twisted():
         (r'/api/config', ConfigHandler),
         # (r'/restart/', MicboardReloadConfigHandler),
         (r'/static/(.*)', web.StaticFileHandler, {'path': config.app_dir('static')}),
-        (r'/bg/(.*)', NoCacheHandler, {'path': config.get_gif_dir()})
+        (r'/bg/(.*)', NoCacheHandler, {'path': config.get_gif_dir()}),
+        (r'/api/backgrounds', BackgroundListHandler),
+        (r'/api/backgrounds/upload', BackgroundUploadHandler),
+        (r'/api/backgrounds/delete', BackgroundDeleteHandler),
+        (r'/api/backgrounds/download/(.*)', BackgroundDownloadHandler),
+        (r'/api/backgrounds/rename', BackgroundRenameHandler)
     ])
     # https://github.com/tornadoweb/tornado/issues/2308
     asyncio.set_event_loop_policy(asyncio.DefaultEventLoopPolicy())
     app.listen(config.web_port())
     ioloop.PeriodicCallback(SocketHandler.ws_dump, 50).start()
     ioloop.IOLoop.instance().start()
+
+
+class BackgroundListHandler(web.RequestHandler):
+    def get(self):
+        files = []
+        bg_dir = config.get_gif_dir()
+        for f in sorted(os.listdir(bg_dir)):
+            if f.lower().endswith(('.jpg', '.jpeg', '.png', '.gif', '.mp4')):
+                path = os.path.join(bg_dir, f)
+                stat = os.stat(path)
+                files.append({
+                    'name': f,
+                    'size': stat.st_size,
+                    'modified': stat.st_mtime
+                })
+        self.set_header('Content-Type', 'application/json')
+        self.write({'files': files, 'directory': bg_dir})
+
+
+class BackgroundUploadHandler(web.RequestHandler):
+    def post(self):
+        import io
+        bg_dir = config.get_gif_dir()
+        if 'file' not in self.request.files:
+            self.set_status(400)
+            self.write({'error': 'No file provided'})
+            return
+        fileinfo = self.request.files['file'][0]
+        original_filename = fileinfo['filename'].lower()
+        ext = os.path.splitext(original_filename)[1]
+
+        # Get desired name from form field, fall back to original filename base
+        desired_name = self.get_argument('name', '').strip().lower()
+        if not desired_name:
+            desired_name = os.path.splitext(os.path.basename(original_filename))[0]
+        # Basic security - strip path components and special chars
+        desired_name = os.path.basename(desired_name)
+
+        # MP4 - pass through as-is
+        if ext == '.mp4':
+            filename = desired_name + '.mp4'
+            filepath = os.path.join(bg_dir, filename)
+            with open(filepath, 'wb') as f:
+                f.write(fileinfo['body'])
+            self.write({'success': True, 'filename': filename})
+            return
+
+        # Convert image to JPG using Pillow
+        convert_types = {'.heic', '.heif', '.webp', '.png', '.bmp', '.tiff', '.tif', '.jpeg', '.jpg'}
+        if ext not in convert_types:
+            self.set_status(400)
+            self.write({'error': f'Unsupported file type: {ext}. Supported types: jpg, png, heic, webp, mp4'})
+            return
+
+        try:
+            from PIL import Image
+            if ext in ('.heic', '.heif'):
+                from pillow_heif import register_heif_opener
+                register_heif_opener()
+
+            img = Image.open(io.BytesIO(fileinfo['body']))
+            # Convert to RGB (handles RGBA, palette mode etc)
+            if img.mode in ('RGBA', 'P', 'LA'):
+                img = img.convert('RGB')
+            filename = desired_name + '.jpg'
+            filepath = os.path.join(bg_dir, filename)
+            img.save(filepath, 'JPEG', quality=90)
+            self.write({'success': True, 'filename': filename, 'converted': ext != '.jpg'})
+        except Exception as e:
+            self.set_status(500)
+            self.write({'error': f'Conversion failed: {str(e)}'})
+
+
+class BackgroundDeleteHandler(web.RequestHandler):
+    def post(self):
+        bg_dir = config.get_gif_dir()
+        data = json.loads(self.request.body)
+        filename = os.path.basename(data.get('filename', ''))
+        if not filename:
+            self.set_status(400)
+            self.write({'error': 'No filename provided'})
+            return
+        filepath = os.path.join(bg_dir, filename)
+        if os.path.exists(filepath):
+            os.remove(filepath)
+            self.write({'success': True})
+        else:
+            self.set_status(404)
+            self.write({'error': 'File not found'})
+
+
+class BackgroundDownloadHandler(web.RequestHandler):
+    def get(self, filename):
+        bg_dir = config.get_gif_dir()
+        filename = os.path.basename(filename)
+        filepath = os.path.join(bg_dir, filename)
+        if not os.path.exists(filepath):
+            self.set_status(404)
+            return
+        self.set_header('Content-Disposition', f'attachment; filename="{filename}"')
+        with open(filepath, 'rb') as f:
+            self.write(f.read())
+
+
+class BackgroundRenameHandler(web.RequestHandler):
+    def post(self):
+        bg_dir = config.get_gif_dir()
+        data = json.loads(self.request.body)
+        old_name = os.path.basename(data.get('filename', ''))
+        new_name = os.path.basename(data.get('new_name', '').strip().lower())
+        if not old_name or not new_name:
+            self.set_status(400)
+            self.write({'error': 'Missing filename or new_name'})
+            return
+        # Preserve extension
+        ext = os.path.splitext(old_name)[1]
+        if not os.path.splitext(new_name)[1]:
+            new_name = new_name + ext
+        old_path = os.path.join(bg_dir, old_name)
+        new_path = os.path.join(bg_dir, new_name)
+        if not os.path.exists(old_path):
+            self.set_status(404)
+            self.write({'error': 'File not found'})
+            return
+        os.rename(old_path, new_path)
+        self.write({'success': True, 'filename': new_name})

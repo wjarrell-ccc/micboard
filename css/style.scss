@@ -297,18 +297,36 @@ canvas.slotgraph {
 
   .name {
     font-size: calc(1vw + 7pt);
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    padding: 2px 8px;
   }
 
   .mic_id {
     position: absolute;
-    top: 0px;
+    top: 0;
     font-size: 30pt;
+    z-index: 1;
+    margin: 0;
+    padding: 0.1em 0.3em;
   }
 
   .mic_name {
     display: flex;
     justify-content:center;
-    align-items:center;
+    align-items:flex-end;
+    padding-bottom: 15%;
+  }
+
+  .mic_name::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 55px;
+    background-color: rgba(0, 0, 0, 0.65);
+    z-index: 0;
   }
 
   .info-drawer {
@@ -661,6 +679,11 @@ canvas.slotgraph {
 
 .message-board a {
   color: inherit;
+}
+
+.backgrounds {
+  display: none;
+  padding-top: 40px;
 }
 
 .settings {
