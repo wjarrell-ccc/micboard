@@ -45,7 +45,7 @@ Follow the same installation steps as Ubuntu above. A few Pi-specific notes:
 ### Install dependencies
 ```
 $ sudo apt update
-$ sudo apt install git python3-pip python3-venv -y
+$ sudo apt install git python3-pip python3-venv libheif-dev -y
 $ curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 $ sudo apt install nodejs -y
 ```
@@ -60,7 +60,7 @@ $ cd micboard/
 ```
 $ python3 -m venv venv
 $ source venv/bin/activate
-$ pip install tornado==6.4
+$ pip install -r py/requirements.txt
 ```
 
 ### Install JavaScript dependencies and build
