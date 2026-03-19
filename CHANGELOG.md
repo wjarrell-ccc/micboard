@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.9.5] - 2026-03-19
+### Added
+- Web-based background photo manager (list, upload, rename, delete, download)
+- Thumbnail and list view toggle in photo manager
+- HEIC (iPhone) and WEBP (Android) automatic conversion to JPG on upload
+- Overwrite warning when uploading a file with an existing name
+- Portrait-oriented thumbnails in photo manager
+- Small thumbnail preview in list view
+- TV mode: channel name pill moved to lower third for better face visibility
+- TV mode: semi-transparent header bar behind channel number
+- TV mode: semi-transparent pill background behind channel name for contrast
+
+### Fixed
+- Photo manager padding/spacing on mobile
+- Download link no longer navigates away from photo manager page
+
 ## [0.9.4] - 2026-03-18
 ### Added
 - Updated Dockerfile for Python 3.12-slim, Node.js 20, modern build process
