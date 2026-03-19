@@ -5,7 +5,7 @@ LABEL maintainer="Will Jarrell <wjarrell@crossings.church>"
 WORKDIR /usr/src/app
 
 # Install Node.js 20
-RUN apt-get update && apt-get install -y curl && \
+RUN apt-get update && apt-get install -y curl libheif-dev && \
     curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y nodejs && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y curl && \
 COPY . .
 
 # Install Python dependencies
-RUN pip3 install --no-cache-dir tornado==6.4
+RUN pip3 install --no-cache-dir -r py/requirements.txt
 
 # Install Node dependencies and build frontend
 RUN npm install
