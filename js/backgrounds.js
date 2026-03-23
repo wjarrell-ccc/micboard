@@ -5,7 +5,7 @@ const CONVERT_TYPES = ['.heic', '.heif', '.webp', '.png', '.bmp', '.tiff', '.tif
 const PASS_TYPES = ['.jpg', '.mp4'];
 const ALL_TYPES = [...CONVERT_TYPES, ...PASS_TYPES];
 
-let viewMode = 'thumbs';
+let viewMode = 'list';
 
 function formatSize(bytes) {
   if (bytes < 1024) return bytes + ' B';
@@ -29,7 +29,7 @@ function renderThumbs(files) {
       ? `<img src="bg/${encodeURIComponent(f.name)}" style="width:100%;height:200px;object-fit:cover;object-position:top center;border-radius:4px 4px 0 0;" />`
       : `<div style="width:100%;height:200px;background:#333;border-radius:4px 4px 0 0;display:flex;align-items:center;justify-content:center;font-size:2em;">🎬</div>`;
     html += `
-      <div class="col-6 col-md-3 mb-3">
+      <div class="col-6 col-sm-4 col-md-3 mb-3" style="min-width:160px;">
         <div class="card bg-dark border-secondary">
           ${preview}
           <div class="card-body p-2">
