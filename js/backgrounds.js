@@ -26,7 +26,7 @@ function renderThumbs(files) {
   files.forEach(f => {
     const isImage = f.name.match(/\.(jpg|jpeg|png|gif)$/i);
     const preview = isImage
-      ? `<img src="/bg/${encodeURIComponent(f.name)}" style="width:100%;height:200px;object-fit:cover;object-position:top center;border-radius:4px 4px 0 0;" />`
+      ? `<img src="bg/${encodeURIComponent(f.name)}" style="width:100%;height:200px;object-fit:cover;object-position:top center;border-radius:4px 4px 0 0;" />`
       : `<div style="width:100%;height:200px;background:#333;border-radius:4px 4px 0 0;display:flex;align-items:center;justify-content:center;font-size:2em;">🎬</div>`;
     html += `
       <div class="col-6 col-md-3 mb-3">
@@ -38,7 +38,7 @@ function renderThumbs(files) {
             <div id="rename-area-${CSS.escape(f.name)}"></div>
             <div class="d-flex flex-wrap gap-1 mt-1">
               <button class="btn btn-sm btn-secondary" onclick="showRename('${f.name}')">Rename</button>
-              <a href="/api/backgrounds/download/${encodeURIComponent(f.name)}" class="btn btn-sm btn-secondary" target="_blank">Download</a>
+              <a href="api/backgrounds/download/${encodeURIComponent(f.name)}" class="btn btn-sm btn-secondary" target="_blank">Download</a>
               <button class="btn btn-sm btn-danger" onclick="deleteFile('${f.name}')">Delete</button>
             </div>
           </div>
@@ -55,7 +55,7 @@ function renderList(files) {
   files.forEach(f => {
     const isImageL = f.name.match(/\.(jpg|jpeg|png|gif)$/i);
     const thumbL = isImageL
-      ? `<img src="/bg/${encodeURIComponent(f.name)}" style="height:40px;width:30px;object-fit:cover;object-position:top;border-radius:2px;" />`
+      ? `<img src="bg/${encodeURIComponent(f.name)}" style="height:40px;width:30px;object-fit:cover;object-position:top;border-radius:2px;" />`
       : `<span style="font-size:1.2em;">🎬</span>`;
     html += `<tr>
       <td class="align-middle" style="width:40px;">${thumbL}</td>
@@ -65,7 +65,7 @@ function renderList(files) {
       <td>
         <div id="rename-area-${CSS.escape(f.name)}" class="mb-1"></div>
         <button class="btn btn-sm btn-secondary me-1" onclick="showRename('${f.name}')">Rename</button>
-        <a href="/api/backgrounds/download/${encodeURIComponent(f.name)}" class="btn btn-sm btn-secondary me-1" target="_blank">Download</a>
+        <a href="api/backgrounds/download/${encodeURIComponent(f.name)}" class="btn btn-sm btn-secondary me-1" target="_blank">Download</a>
         <button class="btn btn-sm btn-danger" onclick="deleteFile('${f.name}')">Delete</button>
       </td>
     </tr>`;
