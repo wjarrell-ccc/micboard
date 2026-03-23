@@ -22,6 +22,9 @@ When the original project stopped working on modern operating systems we moderni
 - Fixed powerlock icon and quality dot positioning
 - Updated nginx multivenue configuration for Ubuntu 24.04/nginx 1.24
 - Added Docker support for easy Mac installation
+- Added web-based background photo manager with upload, rename, delete, download, thumbnail/list view
+- Added HEIC (iPhone) and WEBP (Android) automatic conversion to JPG on upload
+- TV mode improvements: name in lower third, contrast backgrounds for readability
 
 ### Installation
 The easiest way to try micboard is Docker Desktop on a Mac. For permanent installs, a Raspberry Pi is recommended for single venue and Ubuntu Server for multi-venue. See [installation docs](docs/installation.md) for full details.
@@ -29,7 +32,7 @@ The easiest way to try micboard is Docker Desktop on a Mac. For permanent instal
 ### Tested On
 - Ubuntu 24.04 LTS on VMware ESXi VM (x86_64) — 8 venue multivenue setup
 - Raspberry Pi 3B+ running Raspberry Pi OS Trixie (Debian 13) 64-bit — single venue
-- Apple Silicon Mac via Docker Desktop — single venue
+- Apple Silicon Mac via Docker Desktop — single venue (photo manager, TV mode, all features confirmed)
 
 ### Known Behavior
 - The `e` (edit) keyboard shortcut is intentionally disabled on the all-channels view (group 0).

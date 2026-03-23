@@ -11,10 +11,15 @@
 - TV mode: channel name pill moved to lower third for better face visibility
 - TV mode: semi-transparent header bar behind channel number
 - TV mode: semi-transparent pill background behind channel name for contrast
+- Added pillow and pillow-heif to requirements.txt
+- Added libheif-dev to installation docs for Ubuntu and Raspberry Pi
 
 ### Fixed
 - Photo manager padding/spacing on mobile
 - Download link no longer navigates away from photo manager page
+- Thumbnail and download paths fixed for nginx multivenue compatibility
+- iOS Safari download now correctly saves as JPG instead of HTML
+- Default view changed to list view
 
 ## [0.9.4] - 2026-03-18
 ### Added
