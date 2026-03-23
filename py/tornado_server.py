@@ -277,12 +277,17 @@ class BackgroundDeleteHandler(web.RequestHandler):
 
 class BackgroundDownloadHandler(web.RequestHandler):
     def get(self, filename):
+        import mimetypes
         bg_dir = config.get_gif_dir()
         filename = os.path.basename(filename)
         filepath = os.path.join(bg_dir, filename)
         if not os.path.exists(filepath):
             self.set_status(404)
             return
+        mime_type, _ = mimetypes.guess_type(filename)
+        if not mime_type:
+            mime_type = 'application/octet-stream'
+        self.set_header('Content-Type', mime_type)
         self.set_header('Content-Disposition', f'attachment; filename="{filename}"')
         with open(filepath, 'rb') as f:
             self.write(f.read())
